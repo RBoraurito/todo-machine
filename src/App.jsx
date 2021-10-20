@@ -4,12 +4,14 @@ function App() {
 
   return (
     <>
-      <TodoCounter />
-      <TodoSearch />
-      <TodoList>
+      <h2>Has completado 2 de 3 TODOs</h2>
+      <input type="search" name="" id="" placeholder="Cebolla" />
+      {/* {<TodoCounter />} */}
+      {/* {<TodoSearch />} */}
+      {/* {<TodoList>
         <TodoItem />
-      </TodoList>
-      <CreateTodoButton />
+      </TodoList>} */}
+      {/* {<CreateTodoButton />} */}
     </>
   )
 }
