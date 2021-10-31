@@ -1,0 +1,19 @@
+.todo-header {
+  padding: var(--space-6) var(--space-8);
+  background-color: rgba(var(--primary-color-rgb), 0.8);
+  border-radius: var(--space-3);
+  max-width: 500px;
+  margin: var(--space-5) auto var(--space-4);
+  color: white;
+  text-align: text-center;
+}
+
+.todo-header h1 {
+  text-align: center;
+  margin-bottom: var(--space-3);
+  font-weight: bold;
+}
+
+.todo-header h2 {
+  text-align: center;
+}

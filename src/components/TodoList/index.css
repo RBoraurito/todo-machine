@@ -1,0 +1,12 @@
+.todo__list {
+  padding: var(--space-5) var(--space-4);
+  background-color: white;
+  border-radius: var(--space-2);
+  box-shadow: 2px 2px 2px 3px rgba(127, 127, 127, 0.58);
+  -webkit-box-shadow: 2px 2px 2px 2px rgba(127, 127, 127, 0.58);
+  -moz-box-shadow: 2px 2px 2px 2px rgba(127, 127, 127, 0.58);
+}
+
+.todo__list ul {
+  list-style-type: none;
+}

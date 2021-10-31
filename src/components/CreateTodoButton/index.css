@@ -1,0 +1,12 @@
+.todo__create-button {
+  width: 100%;
+  background: var(--primary-color);
+  margin-top: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--text-7);
+  color: var(--light-color);
+  border: 1px solid white;
+  border-radius: var(--space-1);
+  outline: none;
+  font-weight: bold;
+}

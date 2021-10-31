@@ -1,3 +1,5 @@
+import React, { useState } from 'react'
+
 import { TodoCounter } from './components/TodoCounter'
 import { TodoSearch } from './components/TodoSearch'
 import { TodoList } from './components/TodoList'
@@ -7,24 +9,62 @@ import { CreateTodoButton } from './components/CreateTodoButton'
 import './App.css'
 
 function App() {
-  const todos = [
-    { text: 'Lavar los platos', completed: true, id: 1 },
+  const todosInitial = [
+    { text: 'Lavar los platos arstarstarst arstarst arstarst arstarstars tarstar starst arstars tarst ars', completed: true, id: 1 },
     { text: 'Cocinar', completed: false, id: 2 },
     { text: 'Leer 30 minutos', completed: false, id: 3 },
     { text: 'Hacer ejercicio', completed: true, id: 4 },
   ]
 
+  const [todos, setTodos] = useState(todosInitial)
+  const [search, setSearch] = useState('')
+  
+  const uncompletedTodos = todos.filter(todo => todo.completed).length
+  
+  const toggleTodo = (todoId) => {
+    const newTodos = todos.map(todo => {
+      if (todo.id === todoId) {
+        return {
+          ...todo,
+          completed: !todo.completed
+        }
+      }
+      return todo
+    })
+    setTodos(newTodos)
+  }
+
+  const removeTodo = (todoId) => {
+    const newTodos = todos.filter(todo => todo.id !== todoId)
+    setTodos(newTodos)
+  }
+
+  const handleSearch = (evt) => {
+    setSearch(evt.target.value);
+  }
+
+  const searchedTodos = []
+
+  if (search.length === 0) {
+    searchedTodos.push(...todos)
+  } else {
+    searchedTodos.push(...todos.filter(todo => todo.text.toLowerCase().includes(search.toLowerCase())))
+  }
+
   return (
-    <>
-      <TodoCounter />
-      <TodoSearch />
+    <main className="todo">
+      <TodoCounter allTodos={todos.length} uncompletedTodos={uncompletedTodos} />
+      <TodoSearch onSearchChange={handleSearch} />
       <TodoList>
-        {todos.map(todo => (
-          <TodoItem key={todo.id} text={todo.text} />
+        {searchedTodos.map(todo => (
+          <TodoItem key={todo.id} todo={todo} toggle={toggleTodo} remove={removeTodo} className="checked" />
         ))}
+        {searchedTodos.length === 0 && (
+          <p className="todo__message">No hay tareas</p>
+        )}
       </TodoList>
       <CreateTodoButton />
-    </>
+    </main>
   )
 }
 
