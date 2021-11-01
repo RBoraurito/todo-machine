@@ -6,6 +6,8 @@ import { TodoList } from './components/TodoList'
 import { TodoItem } from './components/TodoItem'
 import { CreateTodoButton } from './components/CreateTodoButton'
 
+import { useLocalStorage } from './hooks/useLocalStorage'
+
 import './App.css'
 
 const todosInitial = [
@@ -16,26 +18,11 @@ const todosInitial = [
 ]
 
 function App() {
+  const [todos, saveTodos] = useLocalStorage('todos', [])
 
-  const localStorageTodos = localStorage.getItem('todos')
-  let storedTodos = []
-  
-  if (!localStorageTodos) {
-    localStorage.setItem('todos', JSON.stringify(todosInitial))
-    storedTodos = JSON.parse(localStorage.getItem('todos'))
-  } else {
-    storedTodos = JSON.parse(localStorageTodos)
-  }
-
-  const [todos, setTodos] = useState(storedTodos)
   const [search, setSearch] = useState('')
   
   const uncompletedTodos = todos.filter(todo => todo.completed).length
-
-  const safeTodos = (todos) => {
-    localStorage.setItem('todos', JSON.stringify(todos))
-    setTodos(todos)
-  }
   
   const toggleTodo = (todoId) => {
     const newTodos = todos.map(todo => {
@@ -47,12 +34,12 @@ function App() {
       }
       return todo
     })
-    safeTodos(newTodos)
+    saveTodos(newTodos)
   }
 
   const removeTodo = (todoId) => {
     const newTodos = todos.filter(todo => todo.id !== todoId)
-    safeTodos(newTodos)
+    saveTodos(newTodos)
   }
 
   const handleSearch = (evt) => {
