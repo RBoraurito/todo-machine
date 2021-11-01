@@ -8,18 +8,34 @@ import { CreateTodoButton } from './components/CreateTodoButton'
 
 import './App.css'
 
-function App() {
-  const todosInitial = [
-    { text: 'Lavar los platos arstarstarst arstarst arstarst arstarstars tarstar starst arstars tarst ars', completed: true, id: 1 },
-    { text: 'Cocinar', completed: false, id: 2 },
-    { text: 'Leer 30 minutos', completed: false, id: 3 },
-    { text: 'Hacer ejercicio', completed: true, id: 4 },
-  ]
+const todosInitial = [
+  { text: 'Lavar los platos arstarstarst arstarst arstarst arstarstars tarstar starst arstars tarst ars', completed: true, id: 1 },
+  { text: 'Cocinar', completed: false, id: 2 },
+  { text: 'Leer 30 minutos', completed: false, id: 3 },
+  { text: 'Hacer ejercicio', completed: true, id: 4 },
+]
 
-  const [todos, setTodos] = useState(todosInitial)
+function App() {
+
+  const localStorageTodos = localStorage.getItem('todos')
+  let storedTodos = []
+  
+  if (!localStorageTodos) {
+    localStorage.setItem('todos', JSON.stringify(todosInitial))
+    storedTodos = JSON.parse(localStorage.getItem('todos'))
+  } else {
+    storedTodos = JSON.parse(localStorageTodos)
+  }
+
+  const [todos, setTodos] = useState(storedTodos)
   const [search, setSearch] = useState('')
   
   const uncompletedTodos = todos.filter(todo => todo.completed).length
+
+  const safeTodos = (todos) => {
+    localStorage.setItem('todos', JSON.stringify(todos))
+    setTodos(todos)
+  }
   
   const toggleTodo = (todoId) => {
     const newTodos = todos.map(todo => {
@@ -31,12 +47,12 @@ function App() {
       }
       return todo
     })
-    setTodos(newTodos)
+    safeTodos(newTodos)
   }
 
   const removeTodo = (todoId) => {
     const newTodos = todos.filter(todo => todo.id !== todoId)
-    setTodos(newTodos)
+    safeTodos(newTodos)
   }
 
   const handleSearch = (evt) => {
