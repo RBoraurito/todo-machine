@@ -1,7 +1,12 @@
-import React from 'react'
+import { useContext } from 'react'
+import { TodoContext } from '../../context/TodoContext'
+
 import './index.css'
 
-const TodoSearch = ({ onSearchChange }) => {
+const TodoSearch = () => {
+
+  const {handleSearch} = useContext(TodoContext)
+
   return (
     <input
       className="todo__search"
@@ -9,7 +14,7 @@ const TodoSearch = ({ onSearchChange }) => {
       name="search"
       id="search"
       placeholder="Search your items"
-      onInput={onSearchChange}
+      onInput={handleSearch}
     />
   )
 }
