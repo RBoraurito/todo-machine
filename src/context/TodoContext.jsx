@@ -30,7 +30,8 @@ function TodoProvider(props) {
   }
 
   const addTodo = (newTodo) => {
-    saveTodos(...todos, newTodo)
+    console.log([...todos, newTodo]);
+    saveTodos([...todos, newTodo])
   }
 
   const removeTodo = (todoText) => {

@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 import { TodoContext } from "../../context/TodoContext";
 
 import './index.css'
@@ -11,15 +11,17 @@ const AddTodoModal = () => {
     setOpenModal(false);
   };
 
+  const text = useRef(null)
+
   const addTodoHandler = (e) => {
     e.preventDefault();
-    // const todo = {
-    //   text: e.target.name.value,
-    //   completed: false,
-    // };
-    // addTodo(todo);
-    // closeModal();
-    e.target
+    const todo = {
+      text: text.current.value,
+      completed: false,
+    };
+    addTodo(todo);
+    text.current.value = '';
+    closeModal();
   };
 
   return (
@@ -27,7 +29,7 @@ const AddTodoModal = () => {
       <legend>
         Add a new todo
       </legend>
-      <textarea placeholder="Go to the market" name="todo" id="" cols="30" rows="10" required></textarea>
+      <textarea placeholder="Go to the market" ref={text} name="todo" id="" cols="30" rows="10" required></textarea>
       <div className="modal__buttons">
         <button type="button" className="cancel" onClick={closeModal}>
           Cancel
