@@ -12,12 +12,13 @@ function TodoProvider(props) {
   } = useLocalStorage('todos', [])
   
   const [search, setSearch] = useState('')
+  const [isOpenModal, setOpenModal] = useState(false)
   
   const uncompletedTodos = todos.filter(todo => todo.completed).length
   
-  const toggleTodo = (todoId) => {
+  const toggleTodo = (todoText) => {
     const newTodos = todos.map(todo => {
-      if (todo.id === todoId) {
+      if (todo.text === todoText) {
         return {
           ...todo,
           completed: !todo.completed
@@ -28,8 +29,12 @@ function TodoProvider(props) {
     saveTodos(newTodos)
   }
 
-  const removeTodo = (todoId) => {
-    const newTodos = todos.filter(todo => todo.id !== todoId)
+  const addTodo = (newTodo) => {
+    saveTodos(...todos, newTodo)
+  }
+
+  const removeTodo = (todoText) => {
+    const newTodos = todos.filter(todo => todo.text !== todoText)
     saveTodos(newTodos)
   }
 
@@ -54,7 +59,10 @@ function TodoProvider(props) {
       toggleTodo,
       removeTodo,
       search,
-      handleSearch
+      handleSearch,
+      isOpenModal,
+      setOpenModal,
+      addTodo
     }}>
       {props.children}
     </TodoContext.Provider>

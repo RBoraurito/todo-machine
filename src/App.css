@@ -38,6 +38,7 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body {
@@ -53,4 +54,14 @@ body {
   margin: 0 auto;
   padding: 0 var(--space-4) var(--space-6);
   max-height: 100vh;
+}
+
+.modal {
+  position: absolute;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
 }

@@ -4,11 +4,11 @@ import './index.css'
 const TodoItem = ({todo, toggle, remove}) => {
 
   const handleClick = () => {
-    toggle(todo.id)
+    toggle(todo.text)
   }
 
   const handleRemove = () => {
-    remove(todo.id)
+    remove(todo.text)
   }
 
   return (
