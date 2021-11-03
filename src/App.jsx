@@ -7,6 +7,9 @@ import { TodoItem } from './components/TodoItem'
 import { CreateTodoButton } from './components/CreateTodoButton'
 import { AddTodoModal } from './components/TodoModal'
 import { TodoHeader } from './components/TodoHeader'
+import { TodoError } from './components/TodoItem/Error'
+import { TodoLoading } from './components/TodoItem/Loading'
+import { TodoEmpty } from './components/TodoItem/Empty'
 
 import { useTodos } from './hooks/useTodos'
 import { Modal } from './portals/modal'
@@ -33,16 +36,17 @@ function App() {
         <TodoCounter uncompletedTodos={uncompletedTodos} searchedTodos={searchedTodos}  />
         <TodoSearch handleSearch={handleSearch} />
       </TodoHeader>
-        <TodoList>
-          {searchedTodos.map(todo => (
-            <TodoItem key={todo.text} todo={todo} toggle={toggleTodo} remove={removeTodo} className="checked" />
-          ))}
-          {(searchedTodos.length === 0 && !loading) && (
-            <p className="todo__message">No hay tareas</p>
-          )}
-          {loading && <p className="todo__message">Cargando...</p>}
-          {error && <p className="todo__message">Error al cargar las tareas</p>}
-        </TodoList>
+      <TodoList
+        error={error}
+        onError={(errorText) => <TodoError error={errorText} />}
+        loading={loading}
+        onLoading={() => <TodoLoading/>}
+        searchedTodos={searchedTodos}
+        onEmpty={() => <TodoEmpty/>}
+        onTodos={(todo) => 
+          <TodoItem key={todo.text} todo={todo} toggle={toggleTodo} remove={removeTodo} className="checked" />
+        }
+      />
       <Modal>
         <div className="modal" style={{display: isOpenModal ? 'flex' : 'none'}}>
             <AddTodoModal addTodo={addTodo} setOpenModal={setOpenModal} />
