@@ -9,5 +9,6 @@ export default defineConfig({
       include: ['./src/hooks/*.js']
     }
   },
-  plugins: [react()]
+  plugins: [react()],
+  base: '/todo-machine'
 })

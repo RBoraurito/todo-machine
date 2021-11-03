@@ -1,10 +1,7 @@
 import { useContext } from 'react'
-import { TodoContext } from '../../context/TodoContext'
 import './index.css'
 
-const TodoCounter = () => {
-
-  const { searchedTodos, uncompletedTodos } = useContext(TodoContext)
+const TodoCounter = ({searchedTodos, uncompletedTodos}) => {
 
   return (
     <header className="todo-header">

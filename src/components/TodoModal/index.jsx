@@ -1,11 +1,8 @@
-import { useContext, useRef } from "react";
-import { TodoContext } from "../../context/TodoContext";
+import { useRef } from "react";
 
 import './index.css'
 
-const AddTodoModal = () => {
-
-  const { addTodo, setOpenModal } = useContext(TodoContext);
+const AddTodoModal = ({addTodo, setOpenModal}) => {
 
   const closeModal = () => {
     setOpenModal(false);

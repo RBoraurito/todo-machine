@@ -1,11 +1,9 @@
-import { useContext } from 'react'
-import { TodoContext } from '../../context/TodoContext'
+import React from 'react'
 
 import './index.css'
 
-const TodoSearch = () => {
+const TodoSearch = ({handleSearch}) => {
 
-  const {handleSearch} = useContext(TodoContext)
 
   return (
     <input

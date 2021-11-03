@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import React from 'react'
 
 import { TodoCounter } from './components/TodoCounter'
 import { TodoSearch } from './components/TodoSearch'
@@ -6,19 +6,33 @@ import { TodoList } from './components/TodoList'
 import { TodoItem } from './components/TodoItem'
 import { CreateTodoButton } from './components/CreateTodoButton'
 import { AddTodoModal } from './components/TodoModal'
-import { Modal } from './portals/modal'
+import { TodoHeader } from './components/TodoHeader'
 
-import { TodoContext } from './context/TodoContext'
+import { useTodos } from './hooks/useTodos'
+import { Modal } from './portals/modal'
 
 import './App.css'
 
 function App() {
-  const { searchedTodos, loading, error, toggleTodo, removeTodo, isOpenModal } = useContext(TodoContext)
+  const {
+    searchedTodos,
+    uncompletedTodos,
+    loading,
+    error,
+    toggleTodo,
+    removeTodo,
+    addTodo,
+    isOpenModal,
+    setOpenModal,
+    handleSearch,
+  } = useTodos()
 
   return (
     <main className="todo">
-      <TodoCounter />
-      <TodoSearch />
+      <TodoHeader>
+        <TodoCounter uncompletedTodos={uncompletedTodos} searchedTodos={searchedTodos}  />
+        <TodoSearch handleSearch={handleSearch} />
+      </TodoHeader>
         <TodoList>
           {searchedTodos.map(todo => (
             <TodoItem key={todo.text} todo={todo} toggle={toggleTodo} remove={removeTodo} className="checked" />
@@ -31,10 +45,10 @@ function App() {
         </TodoList>
       <Modal>
         <div className="modal" style={{display: isOpenModal ? 'flex' : 'none'}}>
-            <AddTodoModal />
+            <AddTodoModal addTodo={addTodo} setOpenModal={setOpenModal} />
         </div>
       </Modal>
-      <CreateTodoButton />
+      <CreateTodoButton setOpenModal={setOpenModal} />
     </main>
   )
 }
